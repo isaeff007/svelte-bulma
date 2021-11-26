@@ -1,13 +1,23 @@
 <script context="module">
 	import { fetchedUsers, fetchUsers } from '$data/usersstore';
-    import { fade, scale } from 'svelte/transition'
-    // fill the store
-    fetchUsers();
+import UserCard from '$lib/UserCard.svelte';	
+	// fill the store
+	fetchUsers();
 </script>
 
 <svelte:head><title>Users List</title></svelte:head>
 
+<main>
+	{#each $fetchedUsers as user (user.id)}
+		<UserCard {user}></UserCard>
+	{/each}
+</main>
 
-{#each $fetchedUsers as user}
-	<div in:scale class="box" >{user.name}</div>
-{/each}
+
+<style>
+    main {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }    
+</style>
