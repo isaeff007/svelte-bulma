@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
+import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -20,6 +21,14 @@ const config = {
 		target: '#svelte',
 
 		vite: {
+			resolve: {
+				// to fix the typescript imports and add custom aliases
+				// (s. tsconfig.json too)
+				alias: {
+					src: path.resolve('./src'),
+					$data: path.resolve('./src/data')
+				}
+			},
 			css: {
 				preprocessorOptions: {
 					scss: {
